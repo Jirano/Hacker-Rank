@@ -1,0 +1,15 @@
+/*
+New Companies - Advanced Select
+
+Given the table schemas below, write a query to print the company_code, founder name, total number of lead managers, total number of senior managers, total number of managers, and total number of employees. Order your output by ascending company_code.
+*/
+#Selected the company code, founder, distinct count (or else it would return every code from every table) of lead managers, senior managers, managers, and employees.
+#Joined all 5 tables together using the company code id. Grouped the query by founder and company code. 
+
+SELECT c.company_code, c.founder, COUNT( DISTINCT l.lead_manager_code),COUNT(DISTINCT s.senior_manager_code), COUNT(DISTINCT m.manager_code), COUNT(DISTINCT e.employee_code) 
+FROM Company c JOIN Lead_Manager l ON c.company_code = l.company_code
+JOIN Senior_Manager s ON l.company_code = s.company_code
+JOIN Manager m ON s.company_code = m.company_code
+JOIN Employee e ON m.company_code = e.company_code
+GROUP BY c.founder, c.company_code
+ORDER BY C.company_code;
